@@ -245,3 +245,5 @@ https://github.com/KumarManglam-123/nestjs-prisma-scheduling-system
 # 📄 License
 
 This project is created for **educational and internship evaluation purposes**.
+
+Submission for Backend Developer Internship Task.
