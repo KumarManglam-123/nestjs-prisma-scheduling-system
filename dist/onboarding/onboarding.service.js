@@ -11,21 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OnboardingService = void 0;
 const common_1 = require("@nestjs/common");
-const users_service_1 = require("../users/users.service");
+const prisma_service_1 = require("../prisma/prisma.service");
 let OnboardingService = class OnboardingService {
-    constructor(usersService) {
-        this.usersService = usersService;
+    constructor(prisma) {
+        this.prisma = prisma;
     }
-    assignPatient(userId) {
-        return this.usersService.updateRole(userId, 'PATIENT');
-    }
-    assignDoctor(userId) {
-        return this.usersService.updateRole(userId, 'DOCTOR');
+    async onboardUser(data) {
+        return this.prisma.user.create({
+            data: {
+                name: data.name,
+                email: data.email,
+                role: data.role,
+            },
+        });
     }
 };
 exports.OnboardingService = OnboardingService;
 exports.OnboardingService = OnboardingService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [users_service_1.UsersService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
 ], OnboardingService);
 //# sourceMappingURL=onboarding.service.js.map

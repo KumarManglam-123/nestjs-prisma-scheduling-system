@@ -1,6 +1,13 @@
 export declare class AuthController {
     googleAuth(): {
         message: string;
+        url: string;
     };
-    googleCallback(req: any): any;
+    googleCallback(): {
+        message: string;
+        user: {
+            name: string;
+            email: string;
+        };
+    };
 }

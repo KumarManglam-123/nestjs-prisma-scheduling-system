@@ -19,28 +19,18 @@ let OnboardingController = class OnboardingController {
     constructor(onboardingService) {
         this.onboardingService = onboardingService;
     }
-    assignPatient(userId) {
-        return this.onboardingService.assignPatient(userId);
-    }
-    assignDoctor(userId) {
-        return this.onboardingService.assignDoctor(userId);
+    async onboard(body) {
+        return this.onboardingService.onboardUser(body);
     }
 };
 exports.OnboardingController = OnboardingController;
 __decorate([
-    (0, common_1.Post)('patient'),
-    __param(0, (0, common_1.Body)('userId')),
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
-], OnboardingController.prototype, "assignPatient", null);
-__decorate([
-    (0, common_1.Post)('doctor'),
-    __param(0, (0, common_1.Body)('userId')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
-], OnboardingController.prototype, "assignDoctor", null);
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], OnboardingController.prototype, "onboard", null);
 exports.OnboardingController = OnboardingController = __decorate([
     (0, common_1.Controller)('onboarding'),
     __metadata("design:paramtypes", [onboarding_service_1.OnboardingService])
