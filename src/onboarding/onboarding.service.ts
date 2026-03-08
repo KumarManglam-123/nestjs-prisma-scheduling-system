@@ -1,15 +1,17 @@
-import { Injectable } from '@nestjs/common'
-import { UsersService } from '../users/users.service'
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class OnboardingService {
-  constructor(private usersService: UsersService) {}
+  constructor(private prisma: PrismaService) {}
 
-  assignPatient(userId: number) {
-    return this.usersService.updateRole(userId, 'PATIENT')
-  }
-
-  assignDoctor(userId: number) {
-    return this.usersService.updateRole(userId, 'DOCTOR')
+  async onboardUser(data: { name: string; email: string; role: string }) {
+    return this.prisma.user.create({
+      data: {
+        name: data.name,
+        email: data.email,
+        role: data.role,
+      },
+    });
   }
 }

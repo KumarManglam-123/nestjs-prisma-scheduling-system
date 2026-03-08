@@ -1,19 +1,16 @@
 import { OnboardingService } from './onboarding.service';
 export declare class OnboardingController {
-    private onboardingService;
+    private readonly onboardingService;
     constructor(onboardingService: OnboardingService);
-    assignPatient(userId: number): Promise<{
-        id: number;
+    onboard(body: {
+        name: string;
+        email: string;
+        role: string;
+    }): Promise<{
         email: string;
         name: string;
-        role: string | null;
+        role: string;
         createdAt: Date;
-    }>;
-    assignDoctor(userId: number): Promise<{
         id: number;
-        email: string;
-        name: string;
-        role: string | null;
-        createdAt: Date;
     }>;
 }

@@ -1,19 +1,16 @@
-import { UsersService } from '../users/users.service';
+import { PrismaService } from '../prisma/prisma.service';
 export declare class OnboardingService {
-    private usersService;
-    constructor(usersService: UsersService);
-    assignPatient(userId: number): Promise<{
-        id: number;
+    private prisma;
+    constructor(prisma: PrismaService);
+    onboardUser(data: {
+        name: string;
+        email: string;
+        role: string;
+    }): Promise<{
         email: string;
         name: string;
-        role: string | null;
+        role: string;
         createdAt: Date;
-    }>;
-    assignDoctor(userId: number): Promise<{
         id: number;
-        email: string;
-        name: string;
-        role: string | null;
-        createdAt: Date;
     }>;
 }

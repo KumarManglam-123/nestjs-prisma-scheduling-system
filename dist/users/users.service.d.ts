@@ -3,24 +3,24 @@ export declare class UsersService {
     private prisma;
     constructor(prisma: PrismaService);
     findByEmail(email: string): Promise<{
-        id: number;
         email: string;
         name: string;
-        role: string | null;
+        role: string;
         createdAt: Date;
+        id: number;
     }>;
     createUser(data: any): Promise<{
-        id: number;
         email: string;
         name: string;
-        role: string | null;
+        role: string;
         createdAt: Date;
+        id: number;
     }>;
     updateRole(userId: number, role: any): Promise<{
-        id: number;
         email: string;
         name: string;
-        role: string | null;
+        role: string;
         createdAt: Date;
+        id: number;
     }>;
 }

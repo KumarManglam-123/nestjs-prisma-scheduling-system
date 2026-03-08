@@ -16,19 +16,22 @@ exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 let AuthController = class AuthController {
-    googleAuth() {
-        return { message: "Google auth endpoint" };
+    async googleAuth() {
     }
-    googleCallback(req) {
-        return req.user;
+    googleAuthCallback(req) {
+        return {
+            message: 'Google OAuth successful',
+            user: req.user,
+        };
     }
 };
 exports.AuthController = AuthController;
 __decorate([
     (0, common_1.Get)('google'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('google')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], AuthController.prototype, "googleAuth", null);
 __decorate([
     (0, common_1.Get)('google/callback'),
@@ -37,7 +40,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], AuthController.prototype, "googleCallback", null);
+], AuthController.prototype, "googleAuthCallback", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth')
 ], AuthController);

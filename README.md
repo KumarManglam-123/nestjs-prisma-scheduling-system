@@ -1,37 +1,36 @@
 # 🏥 Backend Scheduling System (NestJS + Prisma)
 
-![Node.js](https://img.shields.io/badge/Node.js-18-green)
-![NestJS](https://img.shields.io/badge/NestJS-Framework-red)
-![Prisma](https://img.shields.io/badge/Prisma-ORM-blue)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+## 📌 Project Overview
 
----
+This project is a **Backend Scheduling System** built using **NestJS and Prisma ORM**.
 
-# 📌 Project Overview
+The system demonstrates a scalable backend architecture including:
 
-This project is a **Backend Scheduling System** built using **NestJS** and **Prisma ORM**.
+- Google OAuth authentication using Passport.js
+- User management APIs
+- Patient and Doctor onboarding
+- Database integration using Prisma ORM
 
-The system demonstrates a **modular backend architecture** with authentication structure, user management, onboarding, and database integration.
+The project follows **NestJS best practices**:
 
-The project follows **NestJS best practices** such as:
+- Modular architecture
+- Dependency Injection
+- Prisma ORM integration
+- REST API design
 
-* Modular architecture
-* Dependency Injection
-* Prisma ORM integration
-* REST API design
-
-This backend can be extended into a **doctor–patient scheduling platform**.
+This backend can be extended into a **Doctor–Patient Appointment Scheduling Platform**.
 
 ---
 
 # ⚙️ Tech Stack
 
-* **Node.js**
-* **NestJS**
-* **TypeScript**
-* **Prisma ORM**
-* **SQLite Database**
-* **Passport.js (Google OAuth structure)**
+- Node.js
+- NestJS
+- TypeScript
+- Prisma ORM
+- SQLite Database
+- Passport.js
+- Google OAuth 2.0
 
 ---
 
@@ -73,7 +72,7 @@ prisma
 
 ## 1️⃣ Clone the Repository
 
-```
+```bash
 git clone https://github.com/KumarManglam-123/nestjs-prisma-scheduling-system.git
 cd nestjs-prisma-scheduling-system
 ```
@@ -82,7 +81,7 @@ cd nestjs-prisma-scheduling-system
 
 ## 2️⃣ Install Dependencies
 
-```
+```bash
 npm install
 ```
 
@@ -92,7 +91,7 @@ npm install
 
 Create a `.env` file in the root folder:
 
-```
+```env
 DATABASE_URL="file:./dev.db"
 
 GOOGLE_CLIENT_ID=your_google_client_id
@@ -103,19 +102,21 @@ GOOGLE_CLIENT_SECRET=your_google_client_secret
 
 ## 4️⃣ Run Prisma Migration
 
-```
+```bash
 npx prisma migrate dev
 ```
 
+This will create the SQLite database (`dev.db`).
+
 ---
 
-## 5️⃣ Start the Server
+## 5️⃣ Start the Backend Server
 
-```
+```bash
 npm run start:dev
 ```
 
-Server will run on:
+Server will start on:
 
 ```
 http://localhost:3000
@@ -123,37 +124,134 @@ http://localhost:3000
 
 ---
 
-# 📡 API Endpoints
+# 🔐 Google OAuth Authentication
 
-## Users Endpoint
+This project implements **Google OAuth login using Passport.js**.
 
-```
-GET /users
-```
+### Authentication Flow
 
-Example Response:
-
-```
-{
- "message": "Users endpoint working"
-}
-```
-
----
-
-## Authentication Endpoint
+1️⃣ User visits:
 
 ```
 GET /auth/google
 ```
 
-Example Response:
+2️⃣ Backend redirects the user to **Google Login**
+
+3️⃣ User authenticates with Google
+
+4️⃣ Google redirects back to:
 
 ```
+GET /auth/google/callback
+```
+
+5️⃣ Backend returns authenticated user details.
+
+### Example Response
+
+```json
 {
- "message": "Google auth endpoint"
+  "message": "Google OAuth successful",
+  "user": {
+    "email": "user@gmail.com",
+    "name": "User Name",
+    "googleId": "123456789"
+  }
 }
 ```
+
+---
+
+# 📡 API Endpoints
+
+## Users
+
+### Get Users
+
+```
+GET /users
+```
+
+Example response:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Rahul",
+    "email": "patient@gmail.com",
+    "role": "PATIENT"
+  },
+  {
+    "id": 2,
+    "name": "Dr Sharma",
+    "email": "doctor@gmail.com",
+    "role": "DOCTOR"
+  }
+]
+```
+
+---
+
+# 🧾 Onboarding APIs
+
+### Create Patient
+
+```
+POST /onboarding/patient
+```
+
+### Create Doctor
+
+```
+POST /onboarding/doctor
+```
+
+These endpoints create users with roles:
+
+- PATIENT
+- DOCTOR
+
+---
+
+# 🗄️ Database
+
+The project uses **Prisma ORM with SQLite**.
+
+### User Model
+
+```prisma
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String
+  role      String
+  createdAt DateTime @default(now())
+}
+```
+
+---
+
+# 🔍 Database Viewer (Prisma Studio)
+
+Run:
+
+```bash
+npx prisma studio
+```
+
+Opens:
+
+```
+http://localhost:5555
+```
+
+You can:
+
+- View database records
+- Edit users
+- Add new entries
 
 ---
 
@@ -171,77 +269,22 @@ AppModule
 
 Each module contains:
 
-* Controller
-* Service
-* Module configuration
+- Controller
+- Service
+- Module configuration
 
-This structure ensures **scalability and maintainability**.
-
----
-
-# 🗄️ Database
-
-The project uses **Prisma ORM with SQLite**.
-
-Example schema structure:
-
-```
-model User {
-  id    Int    @id @default(autoincrement())
-  email String @unique
-  name  String?
-  role  String
-}
-```
-
----
-
-# 📊 ER Diagram (Conceptual)
-
-```
-User
- ├── id
- ├── email
- ├── name
- └── role
-
-Patient
-Doctor
-Appointment
-```
-
-
-
-
-
+This architecture improves **scalability and maintainability**.
 
 ---
 
 # 📚 Features Demonstrated
 
-* NestJS modular architecture
-* Prisma ORM integration
-* REST API development
-* Google OAuth structure
-* Clean backend project design
-* Dependency injection
-
----
-
-# 👨‍💻 Author
-
-**Kumar Manglam**
-
-GitHub Profile:
-
-https://github.com/KumarManglam-123
-
-Project Repository:
-
-https://github.com/KumarManglam-123/nestjs-prisma-scheduling-system
-
----
-
-# 📄 License
-
-This project is created for **educational and internship evaluation purposes**.
+- NestJS modular architecture
+- Prisma ORM integration
+- Google OAuth authentication (Passport Strategy)
+- REST API development
+- Patient onboarding
+- Doctor onboarding
+- SQLite database integration
+- Clean backend architecture
+- Dependency Injection

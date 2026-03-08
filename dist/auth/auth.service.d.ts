@@ -3,10 +3,10 @@ export declare class AuthService {
     private usersService;
     constructor(usersService: UsersService);
     validateGoogleUser(profile: any): Promise<{
-        id: number;
         email: string;
         name: string;
-        role: string | null;
+        role: string;
         createdAt: Date;
+        id: number;
     }>;
 }

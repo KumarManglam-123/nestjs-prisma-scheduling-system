@@ -1,11 +1,16 @@
-import { Module } from '@nestjs/common'
-import { AuthService } from './auth.service'
-import { AuthController } from './auth.controller'
-import { UsersModule } from '../users/users.module'
+import { Module } from '@nestjs/common';
+import { PassportModule } from '@nestjs/passport';
+import { AuthService } from './auth.service';
+import { AuthController } from './auth.controller';
+import { UsersModule } from '../users/users.module';
+import { GoogleStrategy } from './google.strategy';
 
 @Module({
-  imports: [UsersModule],   // ⭐ ADD THIS
+  imports: [
+    UsersModule,
+    PassportModule.register({ session: false }),
+  ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, GoogleStrategy],
 })
 export class AuthModule {}
