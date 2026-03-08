@@ -1,13 +1,7 @@
 export declare class AuthController {
-    googleAuth(): {
+    googleAuth(): Promise<void>;
+    googleAuthCallback(req: any): {
         message: string;
-        url: string;
-    };
-    googleCallback(): {
-        message: string;
-        user: {
-            name: string;
-            email: string;
-        };
+        user: any;
     };
 }

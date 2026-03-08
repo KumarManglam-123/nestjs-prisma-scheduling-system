@@ -1,24 +1,21 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards, Req } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
 
   @Get('google')
-  googleAuth() {
-    return {
-      message: "Redirecting to Google OAuth",
-      url: "https://accounts.google.com/o/oauth2/v2/auth"
-    };
+  @UseGuards(AuthGuard('google'))
+  async googleAuth() {
+    // This route will redirect the user to Google login
   }
 
   @Get('google/callback')
-  googleCallback() {
+  @UseGuards(AuthGuard('google'))
+  googleAuthCallback(@Req() req) {
     return {
-      message: "Google OAuth successful",
-      user: {
-        name: "Demo User",
-        email: "demo@gmail.com"
-      }
+      message: 'Google OAuth successful',
+      user: req.user,
     };
   }
 }
