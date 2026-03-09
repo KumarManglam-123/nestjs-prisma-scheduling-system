@@ -1,17 +1,21 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common'
-import { AuthGuard } from '@nestjs/passport'
+import { Body, Controller, Post } from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { SignupDto } from './dto/signup.dto';
+import { SigninDto } from './dto/signin.dto';
 
 @Controller('auth')
 export class AuthController {
 
-  @Get('google')
-googleAuth() {
-  return { message: "Google auth endpoint" }
-}
+  constructor(private authService: AuthService) {}
 
-  @Get('google/callback')
-  @UseGuards(AuthGuard('google'))
-  googleCallback(@Req() req) {
-    return req.user
+  @Post('signup')
+  signup(@Body() dto: SignupDto) {
+    return this.authService.signup(dto);
   }
+
+  @Post('signin')
+  signin(@Body() dto: SigninDto) {
+    return this.authService.signin(dto);
+  }
+
 }
